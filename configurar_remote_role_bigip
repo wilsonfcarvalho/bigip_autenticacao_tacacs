@@ -1,0 +1,32 @@
+Abaixo segue um exemplo de configurações de Autenticação no Bigip, será adicionada uma imagem com as mesmas configs na GUI: 
+
+auth tacacs system-auth {
+    accounting send-to-all-servers
+    app-service none
+    authentication use-all-servers
+    debug enabled
+    description none
+    encryption disabled
+    partition Common
+    protocol ip
+    secret $M$YK$7dNzQUjEdnk35Ma4j/2+OQ==
+    servers { 3.3.3.159 }
+    service ppp
+    timeout 10
+}
+
+
+
+Para configurar os remote roles e fazer a associação de grupos e funções, utilizar o script abaixo:
+
+#!/bin/bash
+
+tmsh modify auth remote-role role-info add { Administrator { attribute F5-LTM-User-Role=0 console tmsh line-order 100 user-partition all role admin}}
+tmsh modify auth remote-role role-info add { ResourceAdministrator { attribute F5-LTM-User-Role=20 console tmsh line-order 101 user-partition all role resourceadmin }} 
+tmsh modify auth remote-role role-info add { UserManager { attribute F5-LTM-User-Role=40 console tmsh line-order 102 user-partition all role usermanager }} 
+tmsh modify auth remote-role role-info add { Manager { attribute F5LTM-User-Role=100 console tmsh line-order 103 user-partition all role manager }} 
+tmsh modify auth remote-role role-info add { ApplicationEditor { attribute F5-LTM-User-Role=300 console tmsh line-order 104 user-partition all role applicationeditor }} 
+tmsh modify auth remote-role role-info add { Operator { attribute F5LTM-User-Role=400 console tmsh line-order 105 user-partition all role operator }} 
+tmsh modify auth remote-role role-info add { CertificateManager { attribute F5-LTM-User-Role=500 console tmsh line-order 106 user-partition all role certificatemanager }} 
+tmsh modify auth remote-role role-info add { Guest { attribute F5LTM-User-Role=700 console tmsh line-order 107 user-partition all role guest }} 
+
