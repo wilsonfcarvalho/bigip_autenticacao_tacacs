@@ -1,0 +1,23 @@
+Pré-requisitos:
+
+ 1 Instalar o TACACs plus no Linux --> apt install tacacs+
+ 
+ 2 Editar o arquivo "/etc/tacacs+/tac_plus.conf" (é recomendado fazer uma cópia do arquivo original - "cp tac_plus.conf bkp_tac_plus.conf")
+   Descomentar as linhas:
+     - accounting file = /var/log/tac_plus.acct
+     - default authentication = file /etc/passwd
+     - criar os grupos, usuários e as associações:
+           group = admin {
+              service = ppp protocol = ip {
+                F5-LTM-User-Info-1 = Administrator
+                F5-LTM-User-Console = 100
+                F5-LTM-User-Role = 0
+                F5-LTM-User-Partition = all
+             }
+           }
+
+              user = bigip1 {
+              member = admin
+           }
+
+3 
