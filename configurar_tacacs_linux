@@ -1,8 +1,10 @@
-Pré-requisitos:
+Pré-requisitos para configurar o TACACs:
 
- 1 Instalar o TACACs plus no Linux --> apt install tacacs+
+ 1) key = tacacs123 (essa mesma key deverá ser utilizada nas configurações do Bigip)
+
+ 2) Instalar o TACACs plus no Linux --> apt install tacacs+ (necessário que a maquina Linux tenha conectividade com a internet e resolução de nomes)
  
- 2 Editar o arquivo "/etc/tacacs+/tac_plus.conf" (é recomendado fazer uma cópia do arquivo original - "cp tac_plus.conf bkp_tac_plus.conf")
+ 3) Editar o arquivo "/etc/tacacs+/tac_plus.conf" (é recomendado fazer uma cópia do arquivo original - "cp tac_plus.conf bkp_tac_plus.conf")
    Descomentar as linhas:
      - accounting file = /var/log/tac_plus.acct
      - default authentication = file /etc/passwd
@@ -20,4 +22,6 @@ Pré-requisitos:
               member = admin
            }
 
-3 
+4) Configurar os usuários adicionados no arquivo "tac_plus.conf" conforme exemplo acima no Linux, utilizando o comando "adduser bigip1",
+será solicitada a configuração da senha para cada usuário configurado.
+ 
